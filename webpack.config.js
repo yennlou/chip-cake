@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const CommonConfig = {
+  devtool: 'source-map',
   entry: {
     app: './src/index.ts'
   },
@@ -18,12 +19,19 @@ const CommonConfig = {
       chunks: 'all'
     }
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
   module: {
     rules: [
       {
-        test: /.ts$/,
+        test: /\.tsx?$/,
         loader: 'ts-loader',
         include: [path.resolve(__dirname, 'src')]
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },
