@@ -1,17 +1,20 @@
 import { h } from 'preact'
 import { useEffect } from 'preact/compat'
 import { fromEvent } from 'rxjs'
-import { pluck } from 'rxjs/operators'
-import { playTone, stopTone } from './piano'
+import { pluck, filter } from 'rxjs/operators'
+import { playTone, stopTone, getKeyList, key2freq } from './piano'
 
 const App = () => {
   useEffect(() => {
-    const key$ = fromEvent(document, 'keydown').pipe(pluck('key'))
-    const subscription = key$.subscribe((key) => {
-      const osc = playTone()
+    const key$ = fromEvent(document, 'keydown').pipe(
+      pluck<Event, string>('key'),
+      filter((key: string) => getKeyList().includes(key))
+    )
+    const subscription = key$.subscribe((key: any) => {
+      const osc = playTone(key2freq(key))
       setTimeout(() => {
         stopTone(osc)
-      }, 500)
+      }, 200)
     })
     return () => subscription.unsubscribe()
   }, [])
