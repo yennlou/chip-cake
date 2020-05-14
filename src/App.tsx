@@ -4,6 +4,8 @@ import { fromEvent } from 'rxjs'
 import { pluck, filter } from 'rxjs/operators'
 import { playTone, stopTone, getKeyList, key2freq } from './piano'
 
+import './styles.scss'
+
 const App = () => {
   useEffect(() => {
     const key$ = fromEvent(document, 'keydown').pipe(
@@ -18,7 +20,10 @@ const App = () => {
     })
     return () => subscription.unsubscribe()
   }, [])
-  return <div>Hello Preact</div>
+  return (
+    <div id="root">
+      <div id="app">Hello Preact</div>
+    </div>
+  )
 }
-
 export default App
