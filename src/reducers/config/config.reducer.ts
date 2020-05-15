@@ -6,7 +6,7 @@ import {
   ConfigActionTypes
 } from './config.types'
 
-const configInitState: ConfigState = {
+export const configInitState: ConfigState = {
   waveForm: 'square',
   octaveLevel: 4
 }

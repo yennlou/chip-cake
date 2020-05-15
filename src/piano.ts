@@ -1,3 +1,5 @@
+import { WaveForm } from './reducers/config'
+
 const audioContext = new (window.AudioContext ||
   (window as any).webkitAudioContext)()
 const masterGainNode = audioContext.createGain()
@@ -25,10 +27,11 @@ const getKeyList = () => {
   return Object.keys(keyfreqMap)
 }
 
-const playTone = (freq = 444) => {
+const playTone = (freq: number, wave: WaveForm) => {
+  console.log(wave)
   let osc = audioContext.createOscillator()
   osc.connect(masterGainNode)
-  osc.type = 'sine'
+  osc.type = wave
   osc.frequency.value = freq
   osc.start()
   return osc
