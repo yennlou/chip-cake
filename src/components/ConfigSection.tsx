@@ -1,4 +1,5 @@
 import { h } from 'preact'
+import { useRef } from 'preact/compat'
 import {
   WaveForm,
   ConfigState,
@@ -12,17 +13,20 @@ interface ConfigSectionProps {
 }
 
 const ConfigSection = ({ config, dispatch }: ConfigSectionProps) => {
+  const selectWaveEl = useRef(null)
   return (
     <div className="config">
       <ul>
         <li class="config__select-wave">
           <select
+            ref={selectWaveEl}
             value={config.waveForm}
-            onChange={(e) =>
+            onChange={(e) => {
+              ;(selectWaveEl.current! as HTMLSelectElement).blur()
               dispatch(
                 selectWave((e.target! as HTMLSelectElement).value as WaveForm)
               )
-            }
+            }}
           >
             <option value="sine">sine</option>
             <option value="square">square</option>

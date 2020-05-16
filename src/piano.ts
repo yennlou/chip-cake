@@ -28,7 +28,6 @@ const getKeyList = () => {
 }
 
 const playTone = (freq: number, wave: WaveForm) => {
-  console.log(wave)
   let osc = audioContext.createOscillator()
   osc.connect(masterGainNode)
   osc.type = wave
