@@ -1,9 +1,14 @@
 import { h } from 'preact'
 import { useEffect, useReducer } from 'preact/compat'
 import { fromEvent } from 'rxjs'
-import { pluck, filter, tap } from 'rxjs/operators'
+import { pluck, filter, tap, share } from 'rxjs/operators'
 
-import configReducer, { configInitState, selectWave } from './reducers/config'
+import configReducer, {
+  configInitState,
+  selectWave,
+  increaseOctave,
+  decreaseOctave
+} from './reducers/config'
 import { playTone, stopTone, getKeyList, key2freq } from './piano'
 import ConfigSection from './components/ConfigSection'
 import './styles/main.scss'
@@ -14,31 +19,47 @@ const App = () => {
     configInitState
   )
 
-  const { keyWaveMap } = configState
+  const { keyWaveMap, octaveLevel } = configState
 
   useEffect(() => {
     const key$ = fromEvent(document, 'keydown').pipe(
-      pluck<Event, string>('key')
+      pluck<Event, string>('key'),
+      // tap(console.log),
+      share()
     )
+
     const notePlaySub = key$
-      .pipe(
-        // tap(console.log),
-        filter((key: string) => getKeyList().includes(key))
-      )
+      .pipe(filter((key: string) => getKeyList().includes(key)))
       .subscribe((key: any) => {
-        const osc = playTone(key2freq(key), configState.waveForm)
+        const osc = playTone(key2freq(key, octaveLevel), configState.waveForm)
         setTimeout(() => {
           stopTone(osc)
         }, 200)
       })
-    const controlSub = key$
+
+    const waveControlSub = key$
       .pipe(filter((key: string) => Object.keys(keyWaveMap).includes(key)))
       .subscribe((key: any) => {
         configDispatch(selectWave(keyWaveMap[key]))
       })
+
+    const octaveControlSub = key$
+      .pipe(filter((key: string) => ['=', '-'].includes(key)))
+      .subscribe((key: any) => {
+        switch (key) {
+          case '=':
+            configDispatch(increaseOctave())
+            break
+          case '-':
+            configDispatch(decreaseOctave())
+            break
+        }
+      })
+
     return () => {
       notePlaySub.unsubscribe()
-      controlSub.unsubscribe()
+      waveControlSub.unsubscribe()
+      octaveControlSub.unsubscribe()
     }
   }, [configState])
   return (

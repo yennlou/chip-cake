@@ -4,7 +4,9 @@ import {
   WaveForm,
   ConfigState,
   ConfigActionTypes,
-  selectWave
+  selectWave,
+  increaseOctave,
+  decreaseOctave
 } from '../reducers/config'
 
 interface ConfigSectionProps {
@@ -35,8 +37,20 @@ const ConfigSection = ({ config, dispatch }: ConfigSectionProps) => {
           </select>
         </li>
         <li class="config__control-octave">
-          <button>+</button>
-          <button>-</button>
+          <button
+            onClick={(e) => {
+              dispatch(decreaseOctave())
+            }}
+          >
+            -
+          </button>
+          <button
+            onClick={(e) => {
+              dispatch(increaseOctave())
+            }}
+          >
+            +
+          </button>
         </li>
       </ul>
     </div>

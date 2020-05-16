@@ -1,4 +1,4 @@
-import { WaveForm } from './reducers/config'
+import { WaveForm, OctaveLevel } from './reducers/config'
 
 const audioContext = new (window.AudioContext ||
   (window as any).webkitAudioContext)()
@@ -19,8 +19,8 @@ const keyFreqMap = {
   l: 523
 }
 
-const key2freq = (key: Key) => {
-  return keyFreqMap[key]
+const key2freq = (key: Key, octave: OctaveLevel = 4) => {
+  return keyFreqMap[key] * Math.pow(2, octave - 4)
 }
 
 const getKeyList = () => {

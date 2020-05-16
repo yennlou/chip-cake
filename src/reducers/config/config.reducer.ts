@@ -3,7 +3,8 @@ import {
   OCTAVE_INCREMENT,
   OCTAVE_DECREMENT,
   ConfigState,
-  ConfigActionTypes
+  ConfigActionTypes,
+  OctaveLevel
 } from './config.types'
 
 export const configInitState: ConfigState = {
@@ -27,12 +28,12 @@ const configReducer = (state = configInitState, action: ConfigActionTypes) => {
     case OCTAVE_INCREMENT:
       return {
         ...state,
-        octaveLevel: Math.min(8, state.octaveLevel + 1)
+        octaveLevel: Math.min(8, state.octaveLevel + 1) as OctaveLevel
       }
     case OCTAVE_DECREMENT:
       return {
         ...state,
-        octaveLevel: Math.max(1, state.octaveLevel - 1)
+        octaveLevel: Math.max(1, state.octaveLevel - 1) as OctaveLevel
       }
     default:
       return state
