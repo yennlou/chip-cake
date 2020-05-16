@@ -7,7 +7,7 @@ masterGainNode.connect(audioContext.destination)
 
 type Key = 'a' | 's' | 'd' | 'f' | 'g' | 'h' | 'j' | 'k' | 'l'
 
-const keyfreqMap = {
+const keyFreqMap = {
   a: 247,
   s: 262,
   d: 294,
@@ -20,11 +20,11 @@ const keyfreqMap = {
 }
 
 const key2freq = (key: Key) => {
-  return keyfreqMap[key]
+  return keyFreqMap[key]
 }
 
 const getKeyList = () => {
-  return Object.keys(keyfreqMap)
+  return Object.keys(keyFreqMap)
 }
 
 const playTone = (freq: number, wave: WaveForm) => {

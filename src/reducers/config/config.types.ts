@@ -1,6 +1,11 @@
 export type WaveForm = 'sine' | 'square' | 'sawtooth' | 'triangle'
 
+export interface KeyWaveMap {
+  readonly [key: string]: WaveForm
+}
+
 export interface ConfigState {
+  keyWaveMap: KeyWaveMap
   waveForm: WaveForm
   octaveLevel: number
 }

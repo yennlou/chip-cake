@@ -1,8 +1,9 @@
 import { h } from 'preact'
 import { useEffect, useReducer } from 'preact/compat'
-import { fromEvent, Subscription } from 'rxjs'
-import { pluck, filter } from 'rxjs/operators'
-import configReducer, { configInitState } from './reducers/config'
+import { fromEvent } from 'rxjs'
+import { pluck, filter, tap } from 'rxjs/operators'
+
+import configReducer, { configInitState, selectWave } from './reducers/config'
 import { playTone, stopTone, getKeyList, key2freq } from './piano'
 import ConfigSection from './components/ConfigSection'
 import './styles/main.scss'
@@ -13,19 +14,31 @@ const App = () => {
     configInitState
   )
 
+  const { keyWaveMap } = configState
+
   useEffect(() => {
     const key$ = fromEvent(document, 'keydown').pipe(
-      pluck<Event, string>('key'),
-      filter((key: string) => getKeyList().includes(key))
+      pluck<Event, string>('key')
     )
-    const sub = key$.subscribe((key: any) => {
-      const osc = playTone(key2freq(key), configState.waveForm)
-      setTimeout(() => {
-        stopTone(osc)
-      }, 200)
-    })
+    const notePlaySub = key$
+      .pipe(
+        // tap(console.log),
+        filter((key: string) => getKeyList().includes(key))
+      )
+      .subscribe((key: any) => {
+        const osc = playTone(key2freq(key), configState.waveForm)
+        setTimeout(() => {
+          stopTone(osc)
+        }, 200)
+      })
+    const controlSub = key$
+      .pipe(filter((key: string) => Object.keys(keyWaveMap).includes(key)))
+      .subscribe((key: any) => {
+        configDispatch(selectWave(keyWaveMap[key]))
+      })
     return () => {
-      sub.unsubscribe()
+      notePlaySub.unsubscribe()
+      controlSub.unsubscribe()
     }
   }, [configState])
   return (

@@ -14,6 +14,7 @@ interface ConfigSectionProps {
 
 const ConfigSection = ({ config, dispatch }: ConfigSectionProps) => {
   const selectWaveEl = useRef(null)
+  const { keyWaveMap } = config
   return (
     <div className="config">
       <ul>
@@ -28,10 +29,9 @@ const ConfigSection = ({ config, dispatch }: ConfigSectionProps) => {
               )
             }}
           >
-            <option value="sine">sine</option>
-            <option value="square">square</option>
-            <option value="sawtooth">sawtooth</option>
-            <option value="triangle">triangle</option>
+            {Object.keys(keyWaveMap).map((key) => (
+              <option value={keyWaveMap[key]}>{keyWaveMap[key]}</option>
+            ))}
           </select>
         </li>
         <li class="config__control-octave">

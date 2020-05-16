@@ -7,6 +7,12 @@ import {
 } from './config.types'
 
 export const configInitState: ConfigState = {
+  keyWaveMap: {
+    1: 'sine',
+    2: 'square',
+    3: 'sawtooth',
+    4: 'triangle'
+  },
   waveForm: 'square',
   octaveLevel: 4
 }
