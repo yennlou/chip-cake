@@ -1,24 +1,3 @@
 @import './global.scss';
-
-.config {
-  ul {
-    display: flex;
-  }
-
-  ul > li + li {
-    margin-left: 20px;
-  }
-
-  &__select-wave {
-    padding: 1px;
-  }
-
-  &__control-octave {
-    & > button + button {
-      margin-left: 10px;
-    }
-    button {
-      padding: 2px 20px;
-    }
-  }
-}
+@import './config.scss';
+@import './piano.scss';

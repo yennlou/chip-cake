@@ -10,7 +10,10 @@ import configReducer, {
   decreaseOctave
 } from './reducers/config'
 import { playTone, stopTone, getKeyList, key2freq } from './piano'
+
 import ConfigSection from './components/ConfigSection'
+import PianoSection from './components/PianoSection'
+
 import './styles/main.scss'
 
 const App = () => {
@@ -69,6 +72,7 @@ const App = () => {
           config={configState}
           dispatch={configDispatch}
         ></ConfigSection>
+        <PianoSection></PianoSection>
       </div>
     </div>
   )

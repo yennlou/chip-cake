@@ -1,0 +1,60 @@
+.piano {
+  position: relative;
+  height: 100%;
+  padding: 20px 0px;
+  &__major {
+    width: 100%;
+    height: calc(100% - 20px);
+  }
+
+  &__minor {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+
+  &__major-key {
+    height: 100%;
+    width: 11%;
+    color: inherit;
+    box-shadow: 2px 0 0 0 #2d72a3, 0 2px 0 0 #2d72a3, 2px 2px 0 0 #2d72a3,
+      2px 0 0 0 #2d72a3 inset, 0 2px 0 0 #2d72a3 inset;
+    background: transparent;
+    border: transparent;
+
+    &.active {
+      background: #2d72a3;
+    }
+  }
+
+  &__minor-key {
+    height: 60%;
+    width: 60px;
+    color: #0e0f1a;
+    background: #2d72a3;
+    box-shadow: 2px 0 0 0 #2d72a3, 0 2px 0 0 #2d72a3, 2px 2px 0 0 #2d72a3,
+      2px 0 0 0 #2d72a3 inset, 0 2px 0 0 #2d72a3 inset;
+    border: transparent;
+    position: absolute;
+
+    &:nth-child(1) {
+      left: calc(11% + 6.8%);
+    }
+
+    &:nth-child(2) {
+      left: calc(22% + 6.8%);
+    }
+
+    &:nth-child(3) {
+      left: calc(44% + 6.8%);
+    }
+
+    &:nth-child(4) {
+      left: calc(55% + 6.8%);
+    }
+
+    &:nth-child(5) {
+      left: calc(66% + 6.8%);
+    }
+  }
+}
