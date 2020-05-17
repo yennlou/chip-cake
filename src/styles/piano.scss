@@ -39,7 +39,7 @@ $minor-key-color: var(--gb4-4);
     border: transparent;
 
     &.active {
-      background: var(--gb4-1);
+      background: var(--gb4-3);
     }
   }
 
@@ -55,6 +55,9 @@ $minor-key-color: var(--gb4-4);
     &:nth-child(2),
     &:nth-child(7) {
       flex-grow: 1;
+    }
+    &.active {
+      background: var(--gb4-3);
     }
   }
 }

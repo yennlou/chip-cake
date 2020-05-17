@@ -29,5 +29,8 @@ export const minorKeyFreqMap = {
 }
 
 export const keyFreqMap = { ...majorKeyFreqMap, ...minorKeyFreqMap }
+export const keyList = Object.keys(keyFreqMap)
+export const majorKeyList = Object.keys(majorKeyFreqMap)
+export const minorKeyList = Object.keys(minorKeyFreqMap)
 
 export type Key = keyof typeof keyFreqMap

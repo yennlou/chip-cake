@@ -10,10 +10,6 @@ const key2freq = (key: Key, octave: OctaveLevel = 4) => {
   return keyFreqMap[key] * Math.pow(2, octave - 4)
 }
 
-const getKeyList = () => {
-  return Object.keys(keyFreqMap)
-}
-
 const playTone = (freq: number, wave: WaveForm) => {
   let osc = audioContext.createOscillator()
   osc.connect(masterGainNode)
@@ -27,4 +23,4 @@ const stopTone = (osc: OscillatorNode) => {
   osc.stop()
 }
 
-export { playTone, stopTone, key2freq, getKeyList, Key }
+export { playTone, stopTone, key2freq }

@@ -9,7 +9,8 @@ import configReducer, {
   increaseOctave,
   decreaseOctave
 } from './reducers/config'
-import { playTone, stopTone, getKeyList, key2freq } from './piano'
+import { keyList } from './keys'
+import { playTone, stopTone, key2freq } from './piano'
 
 import ConfigSection from './components/ConfigSection'
 import PianoSection from './components/PianoSection'
@@ -32,7 +33,7 @@ const App = () => {
     )
 
     const notePlaySub = key$
-      .pipe(filter((key: string) => getKeyList().includes(key)))
+      .pipe(filter((key: string) => keyList.includes(key)))
       .subscribe((key: any) => {
         const osc = playTone(key2freq(key, octaveLevel), configState.waveForm)
         setTimeout(() => {
