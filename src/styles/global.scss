@@ -38,17 +38,17 @@ img {
   width: 100vw;
   align-items: center;
   justify-content: center;
-  --ayy4-1: #00303b;
-  --ayy4-2: #ff7777;
-  --ayy4-3: #ffce96;
-  --ayy4-4: #f1f2da;
-  background: var(--ayy4-1);
+  --gb4-1: #243137;
+  --gb4-2: #3f503f;
+  --gb4-3: #768448;
+  --gb4-4: #acb56b;
+  background: var(--gb4-1);
 }
 
 #app {
   width: 800px;
   height: 400px;
-  background: var(--ayy4-4);
-  padding: 32px 40px 20px;
-  color: var(--ayy4-1);
+  background: var(--gb4-4);
+  padding: 32px 36px 20px;
+  color: var(--gb4-1);
 }

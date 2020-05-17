@@ -1,7 +1,8 @@
 import { h } from 'preact'
+import { majorKeyFreqMap, minorKeyFreqMap } from '../keys'
 
-const minorKeys = ['e', 'r', 'y', 'u', 'i']
-const majorKeys = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l']
+const minorKeys = Object.keys(minorKeyFreqMap)
+const majorKeys = Object.keys(majorKeyFreqMap)
 
 const PianoSection = () => {
   return (
