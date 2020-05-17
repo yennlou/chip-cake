@@ -1,3 +1,8 @@
+@mixin collapsed-border($color) {
+  box-shadow: 2px 0 0 0 $color, 0 2px 0 0 $color, 2px 2px 0 0 $color,
+    2px 0 0 0 $color inset, 0 2px 0 0 $color inset;
+}
+
 .piano {
   position: relative;
   height: 100%;
@@ -17,23 +22,21 @@
     height: 100%;
     width: 11%;
     color: inherit;
-    box-shadow: 2px 0 0 0 #2d72a3, 0 2px 0 0 #2d72a3, 2px 2px 0 0 #2d72a3,
-      2px 0 0 0 #2d72a3 inset, 0 2px 0 0 #2d72a3 inset;
+    @include collapsed-border(var(--ayy4-1));
     background: transparent;
     border: transparent;
 
     &.active {
-      background: #2d72a3;
+      background: var(--ayy4-1);
     }
   }
 
   &__minor-key {
     height: 60%;
     width: 60px;
-    color: #0e0f1a;
-    background: #2d72a3;
-    box-shadow: 2px 0 0 0 #2d72a3, 0 2px 0 0 #2d72a3, 2px 2px 0 0 #2d72a3,
-      2px 0 0 0 #2d72a3 inset, 0 2px 0 0 #2d72a3 inset;
+    color: var(--ayy4-4);
+    background: var(--ayy4-1);
+    @include collapsed-border(var(--ayy4-1));
     border: transparent;
     position: absolute;
 
