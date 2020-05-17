@@ -52,3 +52,16 @@ img {
   padding: 32px 36px 20px;
   color: var(--gb4-1);
 }
+
+button {
+  padding: 2px 20px;
+  border: 1px solid var(--gb4-2);
+  background: var(--gb4-4);
+  color: var(--gb4-1);
+}
+
+select {
+  border: 1px solid var(--gb4-2);
+  background: 1px solid var(--gb4-4);
+  color: var(--gb4-1);
+}

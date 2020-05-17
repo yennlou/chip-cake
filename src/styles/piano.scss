@@ -30,6 +30,7 @@ $minor-key-color: var(--gb4-4);
 
   &__major-key {
     display: flex;
+    padding: 0;
     flex: 1 0 0;
     align-items: center;
     justify-content: center;
@@ -45,6 +46,7 @@ $minor-key-color: var(--gb4-4);
 
   &__minor-key {
     display: flex;
+    padding: 0;
     flex: 1.5 0 0;
     align-items: center;
     justify-content: center;
