@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import { useEffect, useReducer } from 'preact/compat'
+import { useEffect, useReducer, useState } from 'preact/compat'
 import { fromEvent } from 'rxjs'
 import { pluck, filter, tap, share } from 'rxjs/operators'
 
@@ -9,7 +9,7 @@ import configReducer, {
   increaseOctave,
   decreaseOctave
 } from './reducers/config'
-import { keyList } from './keys'
+import { keyList, Key } from './keys'
 import { playTone, stopTone, key2freq } from './piano'
 
 import ConfigSection from './components/ConfigSection'
@@ -18,6 +18,11 @@ import PianoSection from './components/PianoSection'
 import './styles/main.scss'
 
 const App = () => {
+  const [pianoState, pianoStateSet] = useState(
+    keyList.reduce((acc, key) => ({ ...acc, [key]: false }), {}) as {
+      [key in Key]: boolean
+    }
+  )
   const [configState, configDispatch] = useReducer(
     configReducer,
     configInitState
@@ -36,7 +41,9 @@ const App = () => {
       .pipe(filter((key: string) => keyList.includes(key)))
       .subscribe((key: any) => {
         const osc = playTone(key2freq(key, octaveLevel), configState.waveForm)
+        pianoStateSet({ ...pianoState, [key]: true })
         setTimeout(() => {
+          pianoStateSet({ ...pianoState, [key]: false })
           stopTone(osc)
         }, 200)
       })
@@ -73,7 +80,7 @@ const App = () => {
           config={configState}
           dispatch={configDispatch}
         ></ConfigSection>
-        <PianoSection></PianoSection>
+        <PianoSection pianoState={pianoState}></PianoSection>
       </div>
     </div>
   )

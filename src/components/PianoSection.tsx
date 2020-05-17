@@ -1,17 +1,36 @@
 import { h } from 'preact'
-import { majorKeyList, minorKeyList } from '../keys'
+import classNames from 'classnames'
+import { majorKeyList, minorKeyList, Key } from '../keys'
 
-const PianoSection = () => {
+interface PianoSectionProps {
+  pianoState: {
+    [key in Key]: boolean
+  }
+}
+
+const PianoSection = ({ pianoState }: PianoSectionProps) => {
   return (
     <div className="piano">
       <div className="piano__minor">
         {minorKeyList.map((k) => (
-          <button className="piano__minor-key">{k}</button>
+          <button
+            className={classNames('piano__minor-key', {
+              active: pianoState[k as Key]
+            })}
+          >
+            {k}
+          </button>
         ))}
       </div>
       <div className="piano__major">
         {majorKeyList.map((k) => (
-          <button className="piano__major-key">{k}</button>
+          <button
+            className={classNames('piano__major-key', {
+              active: pianoState[k as Key]
+            })}
+          >
+            {k}
+          </button>
         ))}
       </div>
     </div>

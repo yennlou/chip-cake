@@ -25,6 +25,8 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "@types/classnames": "^2.2.10",
+    "classnames": "^2.2.6",
     "preact": "^10.4.1",
     "rxjs": "^6.5.5"
   }
