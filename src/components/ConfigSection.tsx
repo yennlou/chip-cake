@@ -16,7 +16,7 @@ interface ConfigSectionProps {
 
 const ConfigSection = ({ config, dispatch }: ConfigSectionProps) => {
   const selectWaveEl = useRef(null)
-  const { keyWaveMap } = config
+  const { keyWaveMap, waveForm, octaveLevel } = config
   return (
     <div className="config">
       <ul>
@@ -52,6 +52,9 @@ const ConfigSection = ({ config, dispatch }: ConfigSectionProps) => {
             +
           </button>
         </li>
+        <li style="margin-right: auto;"></li>
+        <li className="config__info">Wave: {waveForm}</li>
+        <li className="config__info">Octive: {octaveLevel}</li>
       </ul>
     </div>
   )
