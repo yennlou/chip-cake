@@ -52,7 +52,6 @@ const ConfigSection = ({ config, dispatch }: ConfigSectionProps) => {
             +
           </button>
         </li>
-        <li style="margin-right: auto;"></li>
         <li className="config__info">Wave: {waveForm}</li>
         <li className="config__info">Octave: {octaveLevel}</li>
       </ul>

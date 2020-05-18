@@ -76,11 +76,25 @@ const App = () => {
   return (
     <div id="root">
       <div id="app">
-        <ConfigSection
-          config={configState}
-          dispatch={configDispatch}
-        ></ConfigSection>
-        <PianoSection pianoState={pianoState}></PianoSection>
+        <div className="window window--status">
+          <h2 className="window__header">Status</h2>
+          <div className="window__body"></div>
+        </div>
+        <div className="window window--control">
+          <h2 className="window__header">Control</h2>
+          <div className="window__body">
+            <ConfigSection
+              config={configState}
+              dispatch={configDispatch}
+            ></ConfigSection>
+          </div>
+        </div>
+        <div className="window window--piano">
+          <h2 className="window__header">Piano</h2>
+          <div className="window__body">
+            <PianoSection pianoState={pianoState}></PianoSection>
+          </div>
+        </div>
       </div>
     </div>
   )

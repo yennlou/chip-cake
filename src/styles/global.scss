@@ -46,9 +46,16 @@ img {
 }
 
 #app {
-  width: 800px;
-  height: 400px;
-  background: var(--gb4-4);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'status control'
+    'piano piano';
+  column-gap: 20px;
+  row-gap: 20px;
+  width: 1000px;
+  height: 600px;
   padding: 32px 36px 20px;
   color: var(--gb4-1);
 }
@@ -64,4 +71,30 @@ select {
   border: 1px solid var(--gb4-2);
   background: 1px solid var(--gb4-4);
   color: var(--gb4-1);
+}
+
+.window {
+  position: relative;
+  background: var(--gb4-4);
+  border-radius: 12px;
+  overflow: hidden;
+  &__header {
+    padding: 8px;
+    text-align: center;
+    background-color: var(--gb4-3);
+  }
+
+  &__body {
+    height: calc(100% - 35px);
+    padding: 20px;
+  }
+  &--status {
+    grid-area: status;
+  }
+  &--control {
+    grid-area: control;
+  }
+  &--piano {
+    grid-area: piano;
+  }
 }
