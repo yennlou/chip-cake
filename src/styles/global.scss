@@ -48,7 +48,7 @@ img {
 #app {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
+  grid-template-rows: 16fr 11fr;
   grid-template-areas:
     'status control'
     'piano piano';
