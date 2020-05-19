@@ -1,5 +1,5 @@
 import { WaveForm, OctaveLevel } from './reducers/config'
-import { Key, keyFreqMap } from './keys'
+import { Key, keyFreqMap } from './reducers/piano/piano.types'
 
 class Synthesizer {
   private c: AudioContext

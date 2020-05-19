@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import classNames from 'classnames'
-import { majorKeyList, minorKeyList, Key } from '../keys'
+import { majorKeyList, minorKeyList, Key } from '../reducers/piano/piano.types'
 
 interface PianoSectionProps {
   pianoState: {

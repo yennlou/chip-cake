@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import { useEffect, useReducer, useState } from 'preact/compat'
-import { fromEvent } from 'rxjs'
+import { fromEvent, merge, Observable } from 'rxjs'
 import { pluck, filter, tap, share } from 'rxjs/operators'
 
 import configReducer, {
@@ -9,7 +9,12 @@ import configReducer, {
   increaseOctave,
   decreaseOctave
 } from './reducers/config'
-import { keyList, Key } from './keys'
+import pianoReducer, {
+  pianoInitState,
+  pianoKeyUp,
+  pianoKeyDown
+} from './reducers/piano'
+import { keyList, Key } from './reducers/piano/piano.types'
 import { instruments, key2freq } from './audio'
 
 import ConfigSection from './components/ConfigSection'
@@ -18,11 +23,7 @@ import PianoSection from './components/PianoSection'
 import './styles/main.scss'
 
 const App = () => {
-  const [pianoState, pianoStateSet] = useState(
-    keyList.reduce((acc, key) => ({ ...acc, [key]: false }), {}) as {
-      [key in Key]: boolean
-    }
-  )
+  const [pianoState, pianoDispatch] = useReducer(pianoReducer, pianoInitState)
   const [configState, configDispatch] = useReducer(
     configReducer,
     configInitState
@@ -31,32 +32,43 @@ const App = () => {
   const { keyWaveMap, octaveLevel, waveForm } = configState
 
   useEffect(() => {
-    const key$ = fromEvent(document, 'keydown').pipe(
-      pluck<Event, string>('key'),
+    const key$ = merge(
+      fromEvent(document, 'keydown'),
+      fromEvent(document, 'keyup')
+    ).pipe(
       // tap(console.log),
       share()
     )
 
+    const keydown$: Observable<string> = key$.pipe(
+      filter((e) => e.type === 'keydown'),
+      pluck('key')
+    )
+
     const notePlaySub = key$
-      .pipe(filter((key: string) => keyList.includes(key)))
-      .subscribe((key: any) => {
-        const osc = instruments[waveForm].play(key2freq(key, octaveLevel))
-        pianoStateSet({ ...pianoState, [key]: true })
-        setTimeout(() => {
-          pianoStateSet({ ...pianoState, [key]: false })
-          osc.stop()
-        }, 200)
+      .pipe(filter((e) => keyList.includes((e as KeyboardEvent).key)))
+      .subscribe((e: any) => {
+        const key = e.key
+        if (e.type === 'keydown') {
+          pianoDispatch(pianoKeyDown(key))
+          // osc = instruments[waveForm].play(key2freq(key, octaveLevel))
+        } else if (e.type === 'keyup') {
+          pianoDispatch(pianoKeyUp(key))
+          // if (osc) {
+          //   ;(osc as OscillatorNode).stop()
+          // }
+        }
       })
 
-    const waveControlSub = key$
-      .pipe(filter((key: string) => Object.keys(keyWaveMap).includes(key)))
-      .subscribe((key: any) => {
+    const waveControlSub = keydown$
+      .pipe(filter((key) => Object.keys(keyWaveMap).includes(key)))
+      .subscribe((key) => {
         configDispatch(selectWave(keyWaveMap[key]))
       })
 
-    const octaveControlSub = key$
-      .pipe(filter((key: string) => ['=', '-'].includes(key)))
-      .subscribe((key: any) => {
+    const octaveControlSub = keydown$
+      .pipe(filter((key) => ['=', '-'].includes(key)))
+      .subscribe((key) => {
         switch (key) {
           case '=':
             configDispatch(increaseOctave())
@@ -92,7 +104,7 @@ const App = () => {
         <div className="window window--piano">
           <h2 className="window__header">Piano</h2>
           <div className="window__body">
-            <PianoSection pianoState={pianoState}></PianoSection>
+            <PianoSection pianoState={pianoState.keyPressMap}></PianoSection>
           </div>
         </div>
       </div>
