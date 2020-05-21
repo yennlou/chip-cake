@@ -65,6 +65,9 @@ button {
   border: 1px solid var(--gb4-2);
   background: var(--gb4-4);
   color: var(--gb4-1);
+  &:focus {
+    outline: none;
+  }
 }
 
 select {

@@ -29,4 +29,4 @@ Object.values(instruments).forEach((instrument) => {
   instrument.connect(gainNode)
 })
 
-export { instruments, key2freq, Synthesizer }
+export { instruments, key2freq, Synthesizer, analyserNode }

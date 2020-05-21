@@ -15,6 +15,13 @@ $minor-key-color: var(--gb4-4);
   display: flex;
   flex-flow: column;
   height: 100%;
+
+  button {
+    &:focus {
+      outline: none;
+    }
+  }
+
   &__major {
     display: flex;
     flex: 2 0 auto;
