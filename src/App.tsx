@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import { useEffect, useReducer, useState } from 'preact/compat'
+import { useEffect, useReducer } from 'preact/compat'
 import { fromEvent, merge, Observable } from 'rxjs'
 import { pluck, filter, tap, share } from 'rxjs/operators'
 
@@ -15,12 +15,16 @@ import pianoReducer, {
   pianoKeyDown
 } from './reducers/piano'
 import { keyList, Key } from './reducers/piano/piano.types'
-import { instruments, key2freq } from './audio'
+import { instruments, key2freq, Synthesizer } from './audio'
 
 import ConfigSection from './components/ConfigSection'
 import PianoSection from './components/PianoSection'
 
 import './styles/main.scss'
+
+const keyNoteMap: {
+  [key in Key]?: { instrument: Synthesizer; freq: number } | null
+} = {}
 
 const App = () => {
   const [pianoState, pianoDispatch] = useReducer(pianoReducer, pianoInitState)
@@ -48,15 +52,19 @@ const App = () => {
     const notePlaySub = key$
       .pipe(filter((e) => keyList.includes((e as KeyboardEvent).key)))
       .subscribe((e: any) => {
-        const key = e.key
+        const key = e.key as Key
+        const instrument = instruments[waveForm]
         if (e.type === 'keydown') {
           pianoDispatch(pianoKeyDown(key))
-          // osc = instruments[waveForm].play(key2freq(key, octaveLevel))
+          const freq = instrument.play(key2freq(key, octaveLevel))
+          keyNoteMap[key] = { instrument, freq }
         } else if (e.type === 'keyup') {
           pianoDispatch(pianoKeyUp(key))
-          // if (osc) {
-          //   ;(osc as OscillatorNode).stop()
-          // }
+          if (keyNoteMap[key]) {
+            const { instrument, freq } = keyNoteMap[key]!
+            instrument.stop(freq)
+          }
+          keyNoteMap[key] = null
         }
       })
 
