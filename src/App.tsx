@@ -15,7 +15,7 @@ import pianoReducer, {
   pianoKeyDown
 } from './reducers/piano'
 import { keyList, Key } from './reducers/piano/piano.types'
-import { instruments, key2freq, Synthesizer, analyserNode } from './audio'
+import { instruments, key2freq, Synthesizer, analyser } from './audio'
 
 import ConfigSection from './components/ConfigSection'
 import PianoSection from './components/PianoSection'
@@ -100,7 +100,7 @@ const App = () => {
         <div className="window window--status">
           <h2 className="window__header">Status</h2>
           <div className="window__body">
-            <StatusSection analyserNode={analyserNode}></StatusSection>
+            <StatusSection analyser={analyser}></StatusSection>
           </div>
         </div>
         <div className="window window--control">

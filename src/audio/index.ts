@@ -1,6 +1,7 @@
 import { WaveForm, OctaveLevel } from '../reducers/config'
 import { Key, keyFreqMap } from '../reducers/piano/piano.types'
 import { Synthesizer } from './synthesizer'
+import { Analyser } from './analyser'
 
 const key2freq = (key: Key, octave: OctaveLevel = 4) => {
   return keyFreqMap[key] * Math.pow(2, octave - 4)
@@ -12,6 +13,8 @@ const gainNode = audioContext.createGain()
 const analyserNode = audioContext.createAnalyser()
 
 gainNode.connect(analyserNode).connect(audioContext.destination)
+
+const analyser = new Analyser(analyserNode)
 
 const pianoSine = new Synthesizer(audioContext, 'sine')
 const pianoTriangle = new Synthesizer(audioContext, 'triangle')
@@ -29,4 +32,4 @@ Object.values(instruments).forEach((instrument) => {
   instrument.connect(gainNode)
 })
 
-export { instruments, key2freq, Synthesizer, analyserNode }
+export { instruments, key2freq, Synthesizer, Analyser, analyser }
