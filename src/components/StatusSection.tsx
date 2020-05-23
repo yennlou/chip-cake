@@ -12,20 +12,23 @@ const updateWave = (analyser: Analyser, canvas: HTMLCanvasElement) => {
   const ctx = canvas.getContext('2d')!
   const width = canvas.offsetWidth
   const height = canvas.offsetHeight
+  canvas.width = width
+  canvas.height = height
   ctx.clearRect(0, 0, width, height)
-  ctx.fillStyle = '#000000'
+  ctx.fillStyle = '#243137'
+  ctx.moveTo(0, height / 2)
   amplitudeArray.forEach((amplitude, idx) => {
     const x = (idx * width) / 1024
-    const y = height - (amplitude * height) / 256
-    // console.log(y)
-    ctx.fillRect(x, y, 1, 1)
+    const y = (height - 20) * (1 - amplitude / 256) + 10
+    ctx.lineTo(x, y)
   })
+  ctx.stroke()
 }
 
 const StatusSection = ({ analyser }: StatusSectionProps) => {
   const canvasEl = useRef(null)
   useEffect(() => {
-    const timer$ = interval(100)
+    const timer$ = interval(300)
     const sub = timer$.subscribe(() => {
       updateWave(analyser, canvasEl.current!)
     })
