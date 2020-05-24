@@ -15,11 +15,11 @@ const updateWave = (analyser: Analyser, canvas: HTMLCanvasElement) => {
   canvas.width = width
   canvas.height = height
   ctx.clearRect(0, 0, width, height)
-  ctx.fillStyle = '#243137'
+  ctx.strokeStyle = '#243137'
   ctx.moveTo(0, height / 2)
   amplitudeArray.forEach((amplitude, idx) => {
     const x = (idx * width) / 1024
-    const y = (height - 20) * (1 - amplitude / 256) + 10
+    const y = (height - 40) * (1 - amplitude / 256) + 20
     ctx.lineTo(x, y)
   })
   ctx.stroke()
