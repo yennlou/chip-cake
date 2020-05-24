@@ -95,25 +95,23 @@ const App = () => {
     }
   }, [configState])
   return (
-    <div id="root">
-      <div id="app">
-        <div className="window window--wave">
-          <h2 className="window__header">Wave</h2>
-          <div className="window__body">
-            <WaveSection analyser={analyser}></WaveSection>
-          </div>
+    <div id="app">
+      <div className="window window--wave">
+        <h2 className="window__header">Wave</h2>
+        <div className="window__body">
+          <WaveSection analyser={analyser}></WaveSection>
         </div>
-        <div className="window window--note">
-          <h2 className="window__header">Note</h2>
-          <div className="window__body">
-            <NoteSection></NoteSection>
-          </div>
+      </div>
+      <div className="window window--note">
+        <h2 className="window__header">Note</h2>
+        <div className="window__body">
+          <NoteSection></NoteSection>
         </div>
-        <div className="window window--piano">
-          <h2 className="window__header">Piano</h2>
-          <div className="window__body">
-            <PianoSection pianoState={pianoState.keyPressMap}></PianoSection>
-          </div>
+      </div>
+      <div className="window window--piano">
+        <h2 className="window__header">Piano</h2>
+        <div className="window__body">
+          <PianoSection pianoState={pianoState.keyPressMap}></PianoSection>
         </div>
       </div>
     </div>

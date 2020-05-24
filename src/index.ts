@@ -1,4 +1,4 @@
 import { h, render } from 'preact'
 import App from './App'
 
-render(h(App, null), document.body as Element)
+render(h(App, null), document.querySelector('#root') as Element)
