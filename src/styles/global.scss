@@ -50,7 +50,7 @@ img {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 16fr 11fr;
   grid-template-areas:
-    'status control'
+    'wave note'
     'piano piano';
   column-gap: 20px;
   row-gap: 20px;
@@ -99,5 +99,13 @@ select {
   }
   &--piano {
     grid-area: piano;
+  }
+
+  &--wave {
+    grid-area: wave;
+  }
+
+  &--note {
+    grid-area: note;
   }
 }

@@ -17,9 +17,9 @@ import pianoReducer, {
 import { keyList, Key } from './reducers/piano/piano.types'
 import { instruments, key2freq, Synthesizer, analyser } from './audio'
 
-import ConfigSection from './components/ConfigSection'
+import NoteSection from './components/NoteSection'
 import PianoSection from './components/PianoSection'
-import StatusSection from './components/StatusSection'
+import WaveSection from './components/WaveSection'
 
 import './styles/main.scss'
 
@@ -97,19 +97,16 @@ const App = () => {
   return (
     <div id="root">
       <div id="app">
-        <div className="window window--status">
-          <h2 className="window__header">Status</h2>
+        <div className="window window--wave">
+          <h2 className="window__header">Wave</h2>
           <div className="window__body">
-            <StatusSection analyser={analyser}></StatusSection>
+            <WaveSection analyser={analyser}></WaveSection>
           </div>
         </div>
-        <div className="window window--control">
-          <h2 className="window__header">Control</h2>
+        <div className="window window--note">
+          <h2 className="window__header">Note</h2>
           <div className="window__body">
-            <ConfigSection
-              config={configState}
-              dispatch={configDispatch}
-            ></ConfigSection>
+            <NoteSection></NoteSection>
           </div>
         </div>
         <div className="window window--piano">

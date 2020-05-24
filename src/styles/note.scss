@@ -1,0 +1,16 @@
+.note {
+  table {
+    width: 80%;
+    border-spacing: 4px;
+    text-align: left;
+    margin: 25px auto;
+  }
+  th {
+    text-transform: uppercase;
+    padding-bottom: 4px;
+  }
+
+  th:first-child {
+    width: 30%;
+  }
+}
