@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  &__canvas {
+  &__main {
     width: 100%;
-    flex: 1 0 0;
+    height: 100%;
 
     canvas {
       width: 100%;

@@ -38,7 +38,7 @@ const WaveSection = ({ analyser }: WaveSectionProps) => {
   }, [])
   return (
     <div className="wave">
-      <div className="wave__canvas">
+      <div className="wave__main">
         <canvas ref={canvasEl}></canvas>
       </div>
     </div>
